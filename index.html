@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plataforma para simplificar e automatizar o atendimento entre fisioterapeutas e utentes.">
+  <title>FisioFluxo | Atendimento simples e organizado</title>
+  <style>
+    :root {
+      --navy: #17324d;
+      --teal: #168f8a;
+      --mint: #e9f7f4;
+      --ink: #253447;
+      --muted: #64748b;
+      --white: #ffffff;
+      --line: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); background: #fbfdfd; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+    header { background: rgba(255,255,255,.94); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--navy); letter-spacing: -.04em; }
+    .brand span { color: var(--teal); }
+    .navlinks { display: flex; align-items: center; gap: 24px; font-size: .94rem; color: #475569; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 12px; border: 0; font-weight: 700; cursor: pointer; transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--teal); color: white; box-shadow: 0 8px 20px #168f8a2b; }
+    .btn-light { background: white; color: var(--navy); border: 1px solid var(--line); }
+    .hero { padding: 82px 0 70px; background: radial-gradient(circle at 85% 20%, #d9f4ee 0, transparent 30%), linear-gradient(135deg, #f5fbfa, #f8fbff); }
+    .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 52px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; background: var(--mint); color: #11716d; font-size: .85rem; font-weight: 750; }
+    h1 { color: var(--navy); font-size: clamp(2.5rem, 5vw, 4.25rem); line-height: 1.06; letter-spacing: -.055em; margin: 20px 0; }
+    h1 em { color: var(--teal); font-style: normal; }
+    .lead { max-width: 590px; font-size: 1.12rem; color: var(--muted); margin-bottom: 28px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .trust { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 28px; color: #526477; font-size: .9rem; }
+    .trust span::before { content: "✓"; color: var(--teal); font-weight: 900; margin-right: 7px; }
+    .dashboard { background: white; padding: 24px; border: 1px solid #e2eceb; border-radius: 24px; box-shadow: 0 24px 70px #17324d14; transform: rotate(1deg); }
+    .dash-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .dash-top strong { color: var(--navy); font-size: 1.05rem; }
+    .status { color: #147a57; background: #e4f8ed; padding: 5px 9px; border-radius: 99px; font-size: .75rem; font-weight: 800; }
+    .appointment { display: flex; gap: 13px; align-items: center; padding: 14px 0; border-bottom: 1px solid #edf1f5; }
+    .avatar { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; background: #e3f5f2; font-size: 1.3rem; }
+    .appointment div:nth-child(2) { flex: 1; }
+    .appointment b { display: block; color: var(--navy); font-size: .94rem; }
+    .appointment small { color: var(--muted); }
+    .time { font-size: .82rem; color: var(--teal); font-weight: 800; }
+    .reminder { margin-top: 18px; padding: 15px; border-radius: 15px; background: #f1f8ff; color: #34516d; font-size: .9rem; }
+    section { padding: 76px 0; }
+    .section-head { text-align: center; max-width: 680px; margin: 0 auto 38px; }
+    .section-head h2 { margin: 0 0 12px; color: var(--navy); font-size: clamp(1.9rem, 3vw, 2.7rem); letter-spacing: -.04em; line-height: 1.15; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { background: white; border: 1px solid var(--line); padding: 25px; border-radius: 18px; }
+    .card-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--mint); font-size: 1.45rem; margin-bottom: 16px; }
+    .card h3 { margin: 0 0 8px; color: var(--navy); font-size: 1.1rem; }
+    .card p { color: var(--muted); margin: 0; font-size: .96rem; }
+    .process { background: #f3f8fa; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; }
+    .step { padding: 22px; background: white; border-radius: 16px; border: 1px solid var(--line); }
+    .step-number { color: var(--teal); font-weight: 900; font-size: .85rem; letter-spacing: .08em; }
+    .step h3 { color: var(--navy); margin: 9px 0; font-size: 1.05rem; }
+    .step p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .cta { background: var(--navy); color: white; border-radius: 26px; padding: 44px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+    .cta h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.15; margin: 0 0 10px; letter-spacing: -.04em; }
+    .cta p { margin: 0; color: #d1deea; max-width: 650px; }
+    .cta .btn { white-space: nowrap; background: white; color: var(--navy); }
+    footer { padding: 28px 0; color: var(--muted); font-size: .88rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; }
+    .form-note { display: none; margin-top: 14px; color: #d9fff4; font-weight: 600; }
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      .hero { padding-top: 58px; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .navlinks { gap: 12px; }
+      .navlinks a:not(.btn) { display: none; }
+      .cta { align-items: flex-start; flex-direction: column; padding: 30px; }
+    }
+    @media (max-width: 520px) {
+      .cards, .steps { grid-template-columns: 1fr; }
+      .dashboard { padding: 17px; }
+      .time { display: none; }
+      .trust { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="Navegação principal">
+      <a class="brand" href="#inicio">Fisio<span>Fluxo</span></a>
+      <div class="navlinks">
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#processo">Como funciona</a>
+        <a class="btn btn-primary" href="#contacto">Começar</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">✦ Mais tempo para cuidar</span>
+          <h1>Menos tarefas. <em>Mais cuidado.</em></h1>
+          <p class="lead">Automatize o atendimento entre fisioterapeutas e utentes: organize marcações, envie lembretes e mantenha a comunicação simples num só lugar.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contacto">Conhecer a solução <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="btn btn-light" href="#funcionalidades">Ver funcionalidades</a>
+          </div>
+          <div class="trust">
+            <span>Marcações organizadas</span>
+            <span>Lembretes automáticos</span>
+            <span>Comunicação clara</span>
+          </div>
+        </div>
+        <div class="dashboard" aria-label="Exemplo ilustrativo de agenda">
+          <div class="dash-top"><strong>Agenda de hoje</strong><span class="status">● Organizada</span></div>
+          <div class="appointment">
+            <div class="avatar">👩‍⚕️</div>
+            <div><b>Avaliação inicial</b><small>Maria Silva · Consulta presencial</small></div>
+            <span class="time">09:30</span>
+          </div>
+          <div class="appointment">
+            <div class="avatar">🧑</div>
+            <div><b>Sessão de reabilitação</b><small>João Costa · Seguimento</small></div>
+            <span class="time">11:00</span>
+          </div>
+          <div class="appointment">
+            <div class="avatar">👨‍🦳</div>
+            <div><b>Exercícios terapêuticos</b><small>António Lima · Consulta presencial</small></div>
+            <span class="time">14:15</span>
+          </div>
+          <div class="reminder">🔔 <strong>Lembrete preparado</strong><br>O utente recebe uma mensagem antes da consulta.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="funcionalidades">
+      <div class="container">
+        <div class="section-head">
+          <h2>Um atendimento mais simples, do primeiro contacto ao seguimento</h2>
+          <p>Reduza tarefas repetitivas e dê aos utentes uma experiência mais clara e organizada.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="card-icon">📅</div><h3>Marcações centralizadas</h3><p>Organize consultas, horários e pedidos de marcação sem depender de trocas intermináveis de mensagens.</p></article>
+          <article class="card"><div class="card-icon">🔔</div><h3>Lembretes automáticos</h3><p>Prepare confirmações e lembretes para ajudar a reduzir esquecimentos e faltas às sessões.</p></article>
+          <article class="card"><div class="card-icon">💬</div><h3>Comunicação eficiente</h3><p>Crie respostas para perguntas frequentes e encaminhe cada pedido para a pessoa certa.</p></article>
+          <article class="card"><div class="card-icon">📝</div><h3>Questionários pré-consulta</h3><p>Recolha antecipadamente informações administrativas relevantes, com consentimento do utente.</p></article>
+          <article class="card"><div class="card-icon">🔄</div><h3>Acompanhamento</h3><p>Envie instruções gerais de seguimento e recordatórios definidos pelo profissional de saúde.</p></article>
+          <article class="card"><div class="card-icon">📊</div><h3>Visão geral da atividade</h3><p>Acompanhe pedidos, marcações e tarefas pendentes para gerir melhor o dia a dia da clínica.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="process" id="processo">
+      <div class="container">
+        <div class="section-head">
+          <h2>Como funciona</h2>
+          <p>Um fluxo simples para a equipa e mais conveniência para cada utente.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><span class="step-number">PASSO 01</span><h3>O utente contacta</h3><p>Preenche um pedido de marcação ou envia uma questão pelos canais disponíveis.</p></article>
+          <article class="step"><span class="step-number">PASSO 02</span><h3>O sistema organiza</h3><p>O pedido é encaminhado e a equipa consulta os horários e informações necessárias.</p></article>
+          <article class="step"><span class="step-number">PASSO 03</span><h3>A consulta é confirmada</h3><p>O utente recebe a confirmação e, quando configurado, um lembrete antes da sessão.</p></article>
+          <article class="step"><span class="step-number">PASSO 04</span><h3>O acompanhamento continua</h3><p>A equipa pode enviar informações de seguimento aprovadas pelo fisioterapeuta.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Pronto para simplificar o atendimento?</h2>
+            <p>Descubra como um fluxo de trabalho organizado pode libertar tempo para aquilo que importa: o cuidado com cada utente.</p>
+            <p class="form-note" id="formNote" role="status">Obrigado pelo interesse! Esta demonstração não envia dados para um servidor.</p>
+          </div>
+          <a class="btn" href="mailto:contacto@exemplo.pt?subject=Interesse%20no%20FisioFluxo">Pedir informações ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span><strong>FisioFluxo</strong> · Atendimento com mais fluidez.</span>
+      <span>© <span id="year"></span> · Demonstração conceptual</span>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
